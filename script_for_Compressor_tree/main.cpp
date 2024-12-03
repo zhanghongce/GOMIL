@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <cmath>
 using namespace std;
 string filename0 = "..//Tune_WL//gurobi_10_10.sol";
 string filename1 = "..//Tune_WL//10_10.txt"; // path of generated compressor tree result file

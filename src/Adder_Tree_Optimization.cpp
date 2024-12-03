@@ -95,7 +95,7 @@ void generate_variables_of_sp(vector<vector<GRBVar>>& variables_sp, vector<GRBVa
 			ss << "sp" << i << "_" << j;
 			ss >> tmp_s;
 			ss.clear();
-			GRBVar variable_sp = model.addVar(-1, INFINITY, 0, GRB_INTEGER, tmp_s);
+			GRBVar variable_sp = model.addVar(-1, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 			variables_sp_of_each_stage.push_back(variable_sp);
 		}
 		variables_sp.push_back(variables_sp_of_each_stage);
@@ -175,7 +175,7 @@ void generate_constraints_x(vector<vector<GRBVar>> variables_x, vector<vector<GR
 				ss << "tmp" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar tmp = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar tmp = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				ss << "tmptmp" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
@@ -244,13 +244,13 @@ void generate_constraints_x_d_sp_id(vector<vector<GRBVar>> variables_x, vector<v
 				ss << "tmpx" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar tmpx = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar tmpx = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				model.addConstr(variables_x[k][j] + variables_x[i - k - 1][j + k + 1] + addx /** (1 - variables_indicator[k][j])*/ - tmpx == -1);
 				//model.addQConstr(variables_x[k][j] + variables_x[i - k - 1][j + k + 1] + addx /** (1 - variables_indicator[k][j])*/ - tmpx >= -1);
 				ss << "tmpd" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar tmpd = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar tmpd = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				/*ss << "tmp" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();*/
@@ -271,7 +271,7 @@ void generate_constraints_x_d_sp_id(vector<vector<GRBVar>> variables_x, vector<v
 				ss << "delay" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar delay = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar delay = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				model.addConstr(tmpd + addd/* * (1 - variables_indicator[k][j])*/ - delay == -1);
 				//model.addConstr(tmpd + addd/* * (1 - variables_indicator[k][j])*/ - delay >= -1);
 
@@ -286,14 +286,14 @@ void generate_constraints_x_d_sp_id(vector<vector<GRBVar>> variables_x, vector<v
 				ss << "tmp" << i << "_" << j << "_" << k;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar tmp = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar tmp = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				model.addConstr(tmpx + PARAMETER_W * delay - tmp == 0);
 				compare_array[k] = tmp;
 			}
 			ss << "obj_tmp" << i << "_" << j << "_";
 			ss >> tmp_s;
 			ss.clear();
-			GRBVar obj_tmp = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+			GRBVar obj_tmp = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 			model.addGenConstrMin(obj_tmp, compare_array, i);
 			model.addConstr(b_lin_expr == 1);
 			model.addQConstr(x_quad_expr + PARAMETER_W * d_quad_expr == obj_tmp);

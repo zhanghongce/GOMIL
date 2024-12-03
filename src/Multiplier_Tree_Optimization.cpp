@@ -29,20 +29,20 @@ void generate_variables_of_multiplier(vector<vector<GRBVar>>& variables_fa, vect
 				ss << "f" << i << "_" << j;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar variable_of_fa = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar variable_of_fa = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				variables_fa_of_each_stage.push_back(variable_of_fa);
 
 				ss << "h" << i << "_" << j;
 				ss >> tmp_s;
 				ss.clear();
-				GRBVar variable_of_ha = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+				GRBVar variable_of_ha = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 				variables_ha_of_each_stage.push_back(variable_of_ha);
 			}
 
 			ss << "V" << i << "_" << j;
 			ss >> tmp_s;
 			ss.clear();
-			GRBVar variable_of_V = model.addVar(0, INFINITY, 0, GRB_INTEGER, tmp_s);
+			GRBVar variable_of_V = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, tmp_s);
 			variables_V_of_each_stage.push_back(variable_of_V);
 		}
 		if (i != 0)
@@ -121,8 +121,8 @@ void generate_cost_of_adders(vector<vector<GRBVar>> variables_fa, vector<vector<
 			//obj += (3 * variables_fa[i][j] + 2 * variables_ha[i][j]);
 		}
 	}
-	ha_num = model.addVar(0, INFINITY, 0, GRB_INTEGER, "hs");
-	fa_num = model.addVar(0, INFINITY, 0, GRB_INTEGER, "fs");
+	ha_num = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, "hs");
+	fa_num = model.addVar(0, GRB_INFINITY, 0, GRB_INTEGER, "fs");
 	model.addConstr(fs == fa_num);
 	model.addConstr(hs == ha_num);
 	//return obj;
